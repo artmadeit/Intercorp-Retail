@@ -21,7 +21,7 @@ import com.example.back.repository.EmployeeRepository;
 import com.example.back.service.EmployeeService;
 
 @RestController
-@RequestMapping()
+@RequestMapping("/empleados")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class EmployeesController {
 	@Autowired //injectar
@@ -32,27 +32,27 @@ public class EmployeesController {
 	@Qualifier("servicio")
 	EmployeeService servicio;
 	
-	@PutMapping("/empleados")
+	@PutMapping
 	public boolean AgregarEmpleados(@RequestBody @Valid Employees em) {
 		return servicio.crear(em);
 	}
 	
-	@PostMapping("/empleados")
+	@PostMapping
 	public boolean ActualizarEmpleados(@RequestBody @Valid Employees em) {
 		return servicio.actualizar(em);
 	}
 	
-	@DeleteMapping("/empleados/{codigo}")
+	@DeleteMapping("/{codigo}")
 	public boolean borrarEmpleados(@PathVariable("codigo") Integer codigo) {
 		return servicio.borrar(codigo);
 	}
 	
-	@GetMapping("/empleados")
+	@GetMapping
 	public List<Employees> getEmployees(){
 		return repositorio.findAll();
 	}
 	
-	@GetMapping(value="/empleados/{codigo}")
+	@GetMapping(value="/{codigo}")
 	public Employees findByCodigo(@PathVariable("codigo") Integer codigo) {
 		return repositorio.findByCodigo(codigo);
 	}
