@@ -25,7 +25,6 @@ import com.example.back.service.EmployeeService;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class EmployeesController {
 	@Autowired //injectar
-	@Qualifier("repositorio")
 	private EmployeeRepository repositorio;
 	
 	@Autowired
