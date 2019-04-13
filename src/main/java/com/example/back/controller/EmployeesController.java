@@ -5,7 +5,6 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.back.entity.Employees;
 import com.example.back.repository.EmployeeRepository;
-import com.example.back.service.EmployeeService;
 
 @RestController
 @RequestMapping("/empleados")
@@ -27,23 +25,19 @@ public class EmployeesController {
 	@Autowired //injectar
 	private EmployeeRepository repositorio;
 	
-	@Autowired
-	@Qualifier("servicio")
-	EmployeeService servicio;
-	
 	@PutMapping
-	public boolean AgregarEmpleados(@RequestBody @Valid Employees em) {
-		return servicio.crear(em);
+	public Employees AgregarEmpleados(@RequestBody @Valid Employees em) {
+		return repositorio.save(em);
 	}
 	
 	@PostMapping
-	public boolean ActualizarEmpleados(@RequestBody @Valid Employees em) {
-		return servicio.actualizar(em);
+	public Employees ActualizarEmpleados(@RequestBody @Valid Employees em) {
+		return repositorio.save(em);
 	}
 	
 	@DeleteMapping("/{codigo}")
-	public boolean borrarEmpleados(@PathVariable("codigo") Integer codigo) {
-		return servicio.borrar(codigo);
+	public void borrarEmpleados(@PathVariable("codigo") Integer codigo) {
+		repositorio.delete(codigo);
 	}
 	
 	@GetMapping
