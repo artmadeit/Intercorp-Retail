@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,8 +21,12 @@ import com.example.back.repository.EmployeeRepository;
 @RequestMapping("/empleados")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class EmployeesController {
-	@Autowired //injectar
+	
 	private EmployeeRepository repositorio;
+	
+	public EmployeesController(EmployeeRepository employeeRepository) {
+		this.repositorio = employeeRepository;
+	}
 	
 	@PutMapping
 	public Employees AgregarEmpleados(@RequestBody @Valid Employees em) {
